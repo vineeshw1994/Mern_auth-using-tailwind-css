@@ -26,7 +26,7 @@ export const signin = async (req, res, next) => {
 
       const validPassword = bcrypt.compareSync(password, validUser.password) 
  
-      if (!validUser) return next(errorHandler(401, ' Invalid credetials'))
+      if (!validPassword) return next(errorHandler(401, ' Invalid credentials'))
 
       const token = jwt.sign({ _id: validUser._id }, process.env.JWT_SECRET)
 

@@ -1,14 +1,19 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import {signInStart,signInSuccess,signInFailure} from '../redux/user/userSlice.js'
+import { useDispatch, useSelector } from "react-redux"
+
 
 
 const Signin = () => {
 
   const [formData, setFormData] = useState({})
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  
+  const {loading, error} = useSelector((state) => state.user)
+
 
   const nabvigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleChange = (e) => {
     setFormData({
@@ -24,8 +29,7 @@ const Signin = () => {
     e.preventDefault()
 
     try {
-      setLoading(true)
-      setError(false)
+      dispatch(signInStart()) 
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -34,17 +38,18 @@ const Signin = () => {
         body: JSON.stringify(formData),
       })
       const data = await res.json()
-      setLoading(false)
-
       if (data.success === false) {
-        setError(true);
+        dispatch(signInFailure(data))
+        console.log(data)
         return;
       }
+
+      dispatch(signInSuccess(data))
       nabvigate('/')
 
     } catch (err) {
-      setLoading(false)
-      setError(true)
+      dispatch(signInFailure(error))
+      console.log(error.message)
     }
   }
 
@@ -74,7 +79,7 @@ const Signin = () => {
           <span className="text-blue-500">Sign Up</span>
         </Link>
       </div>
-      <p className="text-red-700 mt-5 text-center ">{error && 'Email or Mobile Number is already exist'}</p>
+      <p className="text-red-700 mt-5 text-center ">{error ? error.message || 'something went wrong' : ''}</p>
     </div>
   )
 }

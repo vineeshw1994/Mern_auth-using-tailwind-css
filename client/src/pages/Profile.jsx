@@ -59,7 +59,7 @@ const Profile = () => {
     request.resource.size < 2 * 1024 * 1024 && 
     request.resource.contentType.matches('image/.*') */}
         <img
-          src={currentUser.profilePic}
+          src={formData.profilePic || currentUser.profilePic}
           alt="profile"
           className="h-24 w-24 self-center rounded-full object-cover "
           onClick={() => fileRef.current.click()}

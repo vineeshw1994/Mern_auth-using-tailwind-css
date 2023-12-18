@@ -364,7 +364,7 @@ export default function Profile() {
         </span>
       </div>
       <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
-      <p className='text-green-700 mt-5'>
+      <p className='text-green-700 mt-5 text-center'>
         {updateSuccess && 'User is updated successfully!'}
       </p>
     </div>

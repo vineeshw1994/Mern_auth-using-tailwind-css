@@ -8,8 +8,9 @@ export const test = (req,res)=> {
 }
 
 export const updateUser = async(req,res,next)=>{
+    
     if(req.user.id !== req.params.id){
-        return res.status(401).json('you can update only your account')
+        // return res.status(401).json('you can update only your account')
         return next(errorHandler(401,'You can update only your account'))
     }
 
@@ -35,13 +36,14 @@ export const updateUser = async(req,res,next)=>{
 
 
 export const deleteUser =async(req,res,next) =>{
+    console.log('hey this is the delete user function')
     if(req.user.id !== req.params.id){
         return res.status(401).json('you can delete only your account')    
     }
 
     try{
         await User.findByIdAndDelete(req.params.id);
-        res.status(200).json('user has been deleted...')
+        res.status(200).json({ success: true, message: 'User has been deleted.' });    
     }catch(error){
         next(error)
     }

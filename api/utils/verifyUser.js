@@ -8,7 +8,7 @@ export const verifyToken = (req,res,next)=>{
     }
 
     jwt.verify(token,process.env.JWT_SECRET,(error,user)=>{
-        if(err){
+        if(error){
             return next(errorHandler(403,'Token is not valid'));
         }
         req.user = user;

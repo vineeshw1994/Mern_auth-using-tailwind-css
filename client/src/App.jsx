@@ -6,6 +6,7 @@ import Signin from "./pages/Signin"
 import Signup from "./pages/Signup"
 import Header from "./components/Header"
 import Profile from "./pages/Profile"
+import Otp from "./pages/Otp"
 import PrivateRoute from "./components/PrivateRoute"
 
  
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/sign-in" element={<Signin />} />
         <Route path="/sign-up" element={<Signup />} />
+        <Route path="/otp" element={<Otp />} />
         <Route element={<PrivateRoute />} >
           <Route path="/profile" element={<Profile />} />
         </Route>

@@ -33,14 +33,28 @@ const Signup = () => {
       })
 
       const data = await res.json()
-      setLoading(false)
+      console.log(data)
 
-      if (data.error) {
-        setError(true)
-        return
+      if(data.mobileNo === false){
+        navigate('/otp')
+      }else{
+
+        setLoading(false)
+        if (data.error) {
+          setError(true)
+          return
+        }
+
+        navigate('/sign-in')
       }
+      // setLoading(false)
 
-      navigate('/sign-in')
+      // if (data.error) {
+      //   setError(true)
+      //   return
+      // }
+
+      // navigate('/sign-in')
 
     } catch (err) {
       setLoading(false)
@@ -55,7 +69,9 @@ const Signup = () => {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input type="text" placeholder="Username" id="username" className="bg-slate-100 p-3 rounded-lg" onChange={handleChange} />
         <input type="text" placeholder="Email" id="email" className="bg-slate-100 p-3 rounded-lg" onChange={handleChange} />
+        <input type="number" placeholder="Mobile" id="phone" className="bg-slate-100 p-3 rounded-lg" onChange={handleChange} />
         <input type="password" placeholder="password" id="password" className="bg-slate-100 p-3 rounded-lg" onChange={handleChange} />
+       
         <button disabled={loading} className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-95"> 
         {loading ? 'Loading....' : "Signup"}
         </button>
